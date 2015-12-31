@@ -1,0 +1,83 @@
+#!/usr/bin/python
+# coding: utf8
+
+from Skype4Py import Skype
+from time import sleep
+from colorama import Fore
+from os import system
+from optparse import OptionParser
+
+from random import randint
+from threading import Thread
+
+SUC = Fore.GREEN + '[+] ' + Fore.RESET
+ERR = Fore.RED + '[!] ' + Fore.RESET 
+INFO = Fore.CYAN + '[*] ' + Fore.RESET
+
+op = OptionParser ('--target <target\'s login> --delay <delay>')
+op.add_option ('--target', dest='target', type='string', help='set target\'s login at this flag')
+op.add_option ('--delay', dest='delay', type='int', help='set time-delay')
+(op, args) = op.parse_args ()
+
+def random_all (for_one, length):
+    
+    char_buffer = '`1234567890-=~!@#$%^&*()_+qwertyuiop[]asdfghjkl;zxcvbnm,./QWERTYUIOP{}ASDFGHJKL:"|ZXCVBNM<>?'
+    
+    for i in range (for_one + 1):
+        out = ''
+        if randint (0, 1) == 0:
+            for j in range (length + 1):
+                out += str (randint (0, 99999999))
+        else:
+            for j in range (length + 1):
+                out += char_buffer [randint (0, len (char_buffer)-1)]
+        return out
+    
+def start_skype ():
+    system ('skype')  
+    
+def main ():
+    
+    banner = '''
+    
+    ''' + Fore.CYAN + '''
+    
+    ╔══╦╗╔══╦╗╔╦═══╦═══╗
+    ║╔═╣║║╔═╣║║║╔═╗║╔══╝
+    ║╚═╣╚╝║─║╚╝║╚═╝║╚══╗
+    ╚═╗║╔╗║─╚═╗║╔══╣╔══╝
+    ╔═╝║║║╚═╗╔╝║║──║╚══╗
+    ╚══╩╝╚══╝╚═╩╝──╚═══╝
+    ╔══╦╗─╔══╦══╦══╗╔═══╦═══╗
+    ║╔═╣║─║╔╗║╔╗║╔╗╚╣╔══╣╔═╗║
+    ║╚═╣║─║║║║║║║║╚╗║╚══╣╚═╝║
+    ║╔═╣║─║║║║║║║║─║║╔══╣╔╗╔╝
+    ║║─║╚═╣╚╝║╚╝║╚═╝║╚══╣║║║
+    ╚╝─╚══╩══╩══╩═══╩═══╩╝╚╝
+    
+    ''' + Fore.GREEN + '[DEVELOPER] ' + Fore.RESET + 'DOCTOR_RABB' + '''
+    ''' + Fore.YELLOW + '[VERSION] ' + Fore.RESET + '0.3f' + '''
+    
+    '''
+    
+    print banner
+    
+    Thread (target=start_skype).start ()
+    
+    print INFO + 'Please, wait 2 seconds... (Press Ctrl + C to exit)'
+    sleep (2)
+    
+    client = Skype ()
+    client.Attach ()
+    
+    while True:
+        try:
+            client.SendMessage(op.target, random_all(50, 50))
+            print SUC + 'Flood Sent!'
+            sleep (op.delay)
+        except KeyboardInterrupt:
+            break
+        
+if __name__ == '__main__':
+    main ()
+        
