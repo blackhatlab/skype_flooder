@@ -9,6 +9,7 @@ print ' '*10 + 'Working Directory: ' + path + ' '*10
 print '='*70
 
 try:
+   os.system ('sudo pip install colorama && sudo pip install Skype4Py')
    os.system ('sudo mv "' + script + '/src/skype-flooder" /usr/bin')
    os.system ('sudo chmod +x /usr/bin/skype-flooder')
    os.system ('sudo rmdir "' + script + '/src"')
